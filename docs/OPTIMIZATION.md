@@ -1,6 +1,29 @@
 # 최적화와 비용 제어
 
-최적화는 에디터 반복 검사와 런타임 이벤트의 불필요한 작업을 줄이는 관점으로 진행했습니다. 아래는 공개 소스에서 확인할 수 있는 구현이며 FPS나 실행 시간 개선 실험을 뜻하지 않습니다.
+## 생성기: AABB Broad Phase
+
+예약 박스의 쌍별 정밀 검사가 후보 재시도마다 반복됐습니다. 후보 월드 박스와 전체 AABB를 한 번 계산하고, 확정된 방의 worldBounds와 교차할 때만 AnyOverlap을 수행합니다. 통과한 후보는 이미 만든 박스와 경계를 PlacedBlock에 넘겨 중복 계산을 피합니다.
+
+AABB는 빈 공간까지 포함하는 보수적인 필터입니다. ㄱ자 방의 빈 부분은 후속 정밀 검사로 판정합니다. BlockData.localBounds를 제작 시 캐싱하는 방식으로 설명하지 않습니다.
+
+### 2026-10-21 당시 사용자 측정 집계
+
+OFF/ON 각각 20개 Seed × 2회, 총 80회 보고입니다.
+
+| 지표 | OFF | ON | 비교 |
+|---|---:|---:|---:|
+| 평균 Process 시간 | 약 6.595초 | 약 0.601초 | 약 90.9% 감소, 약 11배 |
+| 평균 Overlaps 진입 | 약 44,425,694회 | 약 3,386,981회 | 약 92.4% 감소 |
+
+출처는 원본 `PortfolioDocs/2026-10-21_AABB_REVIEW.md`에 보존된 사용자 측정 보고입니다. 개별 80회 로그·Seed 목록·장비·Editor/Player·로그 설정은 재확보하지 못했습니다. 이번 공개 작업에서 재측정하지 않았으며 독립 재현된 벤치마크로 제시하지 않습니다. Overlaps 진입은 모든 SAT 축 검사 횟수와 다릅니다. Process에는 동기 생성과 로그 등이 포함되며 프레임 렌더 비용 전체가 아닙니다.
+
+동일 Seed의 최종 배치 동등성과 AABB를 끈 정밀 검사는 별도 확인 과제입니다. 단위·구간이 불명확한 초기 GC 수치는 성과에서 제외했습니다.
+
+코드: [TemplateBaseBuilder](../Source/Runtime/TemplateBaseBuilder.cs), [BlockReservationBuilder](../Source/Runtime/BlockReservationBuilder.cs), [PlacedBlock](../Source/Runtime/PlacedBlock.cs), [ReservationOverlap](../Source/Runtime/ReservationOverlap.cs).
+
+## 후속 편집기·런타임 비용 제어
+
+아래는 공개 소스에서 확인 가능한 구현이며 각 항목의 실행 시간 개선 실험을 뜻하지 않습니다.
 
 | 대상 | 구현 | 의도와 한계 |
 |---|---|---|
