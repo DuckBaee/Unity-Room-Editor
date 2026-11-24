@@ -1,0 +1,15 @@
+PASS pressed-no-mutation
+PASS footprint-no-mutation
+PASS release-enters-height
+PASS mouse-upward-six-layers
+PASS height-no-mutation
+PASS confirm-volume
+PASS confirm-does-not-restart
+PASS confirm-mouseup-stable
+PASS downward-height
+PASS return-height-one
+PASS escape-no-mutation
+PASS right-click-no-edit
+PASS short-click-one-cell
+PASS outside-release-cancels
+STATE count=1 dragging=False height=False

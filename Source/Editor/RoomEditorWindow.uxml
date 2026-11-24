@@ -1,0 +1,105 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+  <ui:ScrollView name="main-scroll" class="main-scroll">
+
+    <!-- Idle Panel -->
+    <ui:VisualElement name="idle-panel" class="panel">
+      <ui:Label text="방 편집기" class="title" />
+      <ui:VisualElement class="spacer-10" />
+      <ui:Button name="btn-new" text="새 방 만들기" class="btn-large" />
+      <ui:VisualElement class="spacer-6" />
+      <ui:Button name="btn-open" text="기존 방 열기..." class="btn-large" />
+      <ui:VisualElement class="spacer-10" />
+      <ui:HelpBox text="기존 Scene은 보존하며 별도 Scene에서 방을 편집합니다." message-type="Info" />
+    </ui:VisualElement>
+
+    <!-- Edit Panel -->
+    <ui:VisualElement name="edit-panel" class="panel">
+
+      <!-- Toolbar -->
+      <ui:VisualElement name="toolbar" class="toolbar">
+        <ui:Label name="lbl-status" class="toolbar-status" />
+        <ui:VisualElement class="toolbar-spacer" />
+        <ui:Button name="btn-toolbar-new"    text="새 방"         class="toolbar-btn" />
+        <ui:Button name="btn-toolbar-open"   text="열기"          class="toolbar-btn" />
+        <ui:Button name="btn-toolbar-save"   text="저장"          class="toolbar-btn" />
+        <ui:Button name="btn-toolbar-saveas" text="다른 이름으로" class="toolbar-btn" />
+        <ui:Button name="btn-toolbar-exit"   text="종료"          class="toolbar-btn" />
+      </ui:VisualElement>
+
+      <!-- Mode Toggle -->
+      <ui:VisualElement class="mode-row">
+        <ui:Button name="btn-mode-art"  text="아트 편집" class="mode-btn" />
+        <ui:Button name="btn-mode-cell" text="셀 편집"   class="mode-btn" />
+      </ui:VisualElement>
+
+      <!-- Room Root Missing -->
+      <ui:VisualElement name="rootmissing-panel">
+        <ui:HelpBox text="방 루트를 찾을 수 없습니다." message-type="Error" />
+        <ui:Button name="btn-restore-root" text="방 루트 복원" />
+      </ui:VisualElement>
+
+      <!-- Room Status -->
+      <ui:Label name="lbl-roomstatus" class="status-label" />
+
+      <!-- Space Check Warnings -->
+      <ui:HelpBox name="hbx-unverified" message-type="Warning" text="" />
+      <ui:HelpBox name="hbx-violations" message-type="Warning" text="" />
+      <ui:HelpBox name="hbx-skipped"    message-type="Info"    text="" />
+
+      <!-- Art Panel -->
+      <ui:VisualElement name="art-panel">
+        <ui:HelpBox text="Unity 기본 조작으로 아트·포털을 편집합니다.&#10;Project 창에서 SceneView로 드롭하면 방 루트 아래로 자동 편입됩니다." message-type="Info" />
+
+        <!-- Portal Inspector (shown when a room portal is selected) -->
+        <ui:VisualElement name="portal-inspector" class="section">
+          <ui:Label text="포털 속성" class="section-title" />
+          <ui:VisualElement class="field-row">
+            <ui:Label text="포털 ID" class="field-label" />
+            <ui:Label name="lbl-portal-id" class="field-value-ro" />
+          </ui:VisualElement>
+          <ui:HelpBox name="hbx-floorceil" message-type="Error"
+            text="FloorCeiling 포털은 이번 범위에서 지원하지 않습니다. 연결·생성에 사용되지 않습니다." />
+          <ui:Vector2Field name="fld-opening-size" label="개구부 크기 (W×H)" />
+          <ui:HelpBox name="hbx-design-mismatch" message-type="Warning" text="" />
+          <ui:HelpBox name="hbx-design-missing"  message-type="Warning"
+            text="디자인 미지정 — 임시 표시 중입니다.&#10;아래에서 포털 디자인 프리팹을 지정하세요.&#10;지정 전에는 일반 생성에 사용할 수 없습니다." />
+          <uie:ObjectField name="fld-design-prefab" label="디자인 프리팹 지정" />
+          <ui:FloatField  name="fld-reservation-depth" label="예약 깊이" />
+          <ui:HelpBox name="hbx-dir-error"  message-type="Warning" text="" />
+          <ui:Label   name="lbl-dir-info"   class="mini-label" />
+          <ui:HelpBox name="hbx-visualroot" message-type="Warning"
+            text="visualRoot가 비어 있습니다. 표현용 하위 루트를 지정하세요." />
+        </ui:VisualElement>
+
+        <!-- Art Tabs -->
+        <ui:VisualElement class="tab-bar">
+          <ui:Button name="btn-tab-interaction" text="상호작용"   class="tab-btn" />
+          <ui:Button name="btn-tab-zone"        text="영역 이벤트" class="tab-btn" />
+          <ui:Button name="btn-tab-spawn"       text="조건부 생성" class="tab-btn" />
+        </ui:VisualElement>
+        <ui:VisualElement name="tab-content-interaction" />
+        <ui:VisualElement name="tab-content-zone" />
+        <ui:VisualElement name="tab-content-spawn" />
+      </ui:VisualElement>
+
+      <!-- Cell Panel -->
+      <ui:VisualElement name="cell-panel">
+        <ui:VisualElement class="cell-mode-row">
+          <ui:Button name="btn-cell-add"    text="추가" class="mode-btn" />
+          <ui:Button name="btn-cell-erase"  text="삭제" class="mode-btn" />
+          <ui:Button name="btn-cell-select" text="선택" class="mode-btn" />
+        </ui:VisualElement>
+        <ui:HelpBox name="hbx-cell-hint" message-type="Info" text="" />
+        <ui:VisualElement name="select-controls">
+          <ui:HelpBox text="Scene 기즈모로 이동하고 놓으면 적용 여부를 확인합니다. Escape: 취소" message-type="Info" />
+          <ui:VisualElement class="button-row">
+            <ui:Button name="btn-deselect"        text="선택 해제"   class="btn-half" />
+            <ui:Button name="btn-delete-selected" text="선택 셀 삭제" class="btn-half" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button name="btn-clear-all" text="모든 셀 지우기" />
+      </ui:VisualElement>
+
+    </ui:VisualElement>
+  </ui:ScrollView>
+</ui:UXML>

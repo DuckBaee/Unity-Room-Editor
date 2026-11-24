@@ -1,0 +1,8 @@
+PASS range-48-negative-bidirectional
+PASS single-undo-restores-empty
+PASS redo-restores-range
+PASS noop-no-dirty
+PASS delete-only-range
+PASS cancel-preserves-cells
+PASS cancel-clears-phase
+PASS compile

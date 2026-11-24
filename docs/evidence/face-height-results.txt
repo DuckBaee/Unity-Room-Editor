@@ -1,0 +1,12 @@
+PASS face-adjacent-(0, 1, 0)
+PASS face-adjacent-(0, -1, 0)
+PASS face-adjacent-(-1, 0, 0)
+PASS face-adjacent-(1, 0, 0)
+PASS face-adjacent-(0, 0, 1)
+PASS face-adjacent-(0, 0, -1)
+PASS delete-clicked-layer
+PASS select-clicked-cell
+PASS empty-ground-negative-floor
+PASS drag-keeps-start-layer
+PASS compile
+PASS height-ui-removed

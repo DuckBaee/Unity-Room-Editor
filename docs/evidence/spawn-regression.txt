@@ -1,0 +1,10 @@
+PASS data-loaded
+PASS spawn-found
+PASS entries-count
+PASS prob-1-active
+PASS prob-0-inactive
+PASS reproducible
+PASS independent-components
+PASS no-runtime-safe
+PASS math-prob-1-always-active
+PASS math-prob-0-always-inactive

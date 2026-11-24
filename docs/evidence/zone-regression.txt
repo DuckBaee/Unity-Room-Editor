@@ -1,0 +1,16 @@
+PASS zones-found
+PASS instance-independent
+PASS enter-fires
+PASS exit-fires
+PASS dedup-first-enter
+PASS dedup-no-dup-enter
+PASS dedup-no-premature-exit
+PASS dedup-exit-fires
+PASS filter-blocks-wrong
+PASS filter-passes-player
+PASS stay-fires-interval-zero
+PASS stay-blocked-interval
+PASS before-disable-enter
+PASS after-reenable-enter
+PASS disposed-blocks-enter
+PASS disposed-blocks-exit

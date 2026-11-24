@@ -1,0 +1,10 @@
+PASS half-probability-mixed
+PASS same-seed-reproducible
+PASS different-generation-seed
+PASS inactive-prefab-initialized
+PASS initialize-once
+PASS duplicate-enter-deduplicated
+PASS stay-once-per-physics-step
+PASS disabled-collider-cleans-without-exit
+PASS reenable-can-enter
+PASS destroyed-collider-cleans
